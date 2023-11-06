@@ -12,6 +12,7 @@ using Core.LoggerFolder;
 
 namespace Practical_assessment
 {
+    [Parallelizable((ParallelScope)2)]
     public class Tests
     {
         private NLogImplementation logger; 
@@ -51,6 +52,33 @@ namespace Practical_assessment
             Console.WriteLine(Environment.CurrentDirectory);
             
             logger.Info("Finished Test1");
+        }
+
+        [Test]
+        public void Test2()
+        {
+            logger.Info("Starting Test2");
+
+            loginPage.InputName();
+            loginPage.InputPassword();
+            loginPage.ClearPasswordInput();
+            loginPage.Submit();
+            Assert.IsTrue(loginPage.CheckEmptyPasswordInputError());
+
+            logger.Info("Finished Test2");
+        }
+
+        [Test]
+        public void Test3()
+        {
+            logger.Info("Starting Test3");
+
+            loginPage.InputName();
+            loginPage.InputPassword();
+            loginPage.Submit();
+            Assert.IsTrue(loginPage.CheckSuccessfulLogin());
+
+            logger.Info("Finished Test3");
         }
 
         [TearDown]

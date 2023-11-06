@@ -5,47 +5,59 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using POM;
 using Core;
+using NLog;
 
 using static Core.DriverFactory.DriverProvider;
+using Core.LoggerFolder;
 
 namespace Practical_assessment
 {
     public class Tests
     {
+        private NLogImplementation logger; 
         IWebDriver driver;
         private LoginPage loginPage;
         WebDriverWait wait;
 
+        public Tests()
+        {
+            logger = new NLogImplementation("Tests");
+        }
+
         [SetUp]
         public void Setup()
         {
+            logger.Info("Setting up the test");
+
             var browser = (Drivers)Enum.Parse(typeof(Drivers), Configuration.Model.Browser);
             driver = DriverProvider.GetDriverFactory(browser).CreateDriver();
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
             loginPage = new LoginPage(driver);
             loginPage.NavigateToLoginPage();
-
-            //Console.ReadLine();
         }
 
         [Test]
         public void Test1()
         {
+            logger.Info("Starting Test1");
+
             loginPage.InputName();
-            //loginPage.SendEmptyStringToName();
             loginPage.InputPassword();
             loginPage.ClearNameInput();
             loginPage.ClearPasswordInput();
             loginPage.RefreshPage();
-            //Console.ReadLine();
-            //loginPage.SendEmptyStringToName();
             loginPage.Submit();
             Assert.IsTrue(loginPage.CheckEmptyNameInputError());
+            Console.WriteLine(Environment.CurrentDirectory);
+            
+            logger.Info("Finished Test1");
         }
 
         [TearDown]
         public void TearDown()
         {
+            logger.Info("Tearing down the test");
+
             driver.Dispose();
         }
     }

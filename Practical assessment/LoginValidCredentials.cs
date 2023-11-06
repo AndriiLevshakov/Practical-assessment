@@ -32,7 +32,7 @@ namespace Practical_assessment
             loginPage.InputName();
             loginPage.InputPassword();            
             loginPage.Submit();
-            Assert.IsTrue(loginPage.CheckEmptyPasswordInputError());
+            Assert.IsTrue(loginPage.CheckSuccessfulLogin());
         }
 
         [TearDown]

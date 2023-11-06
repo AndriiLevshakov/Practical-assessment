@@ -23,6 +23,7 @@ namespace POM
         IWebElement loginButton => wait.Until(ExpectedConditions.ElementExists(By.XPath("//input[@id=\"login-button\"]")));
         IWebElement emptyNameInputErrorMessage => wait.Until(ExpectedConditions.ElementExists(By.XPath("//*[contains(text(), 'Username is required')]")));
         IWebElement emptyPasswordInputErrorMessage => wait.Until(ExpectedConditions.ElementExists(By.XPath("//*[contains(text(), 'Password is required')]")));
+        IWebElement dashboard => wait.Until(ExpectedConditions.ElementExists(By.XPath("//div[text()='Swag Labs']")));
 
         public void NavigateToLoginPage()
         {
@@ -114,7 +115,12 @@ namespace POM
 
         public bool CheckSuccessfulLogin()
         {
+            if (dashboard.Displayed)
+            {
+                return true;
+            }
 
+            return false;
         }
     }
 }

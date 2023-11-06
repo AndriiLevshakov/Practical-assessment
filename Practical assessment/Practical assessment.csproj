@@ -32,4 +32,9 @@
     <PackageReference Include="SeleniumExtras.WaitHelpers" Version="1.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\POM\POM.csproj" />
+  </ItemGroup>
+
 </Project>
